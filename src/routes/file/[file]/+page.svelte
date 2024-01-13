@@ -1,7 +1,12 @@
 <script lang="ts">
 	import FileIcon from '$lib/icons/fileIcon.svelte';
+	import { toast } from 'svelte-french-toast';
 
 	export let data;
+
+	function downloadFile() {
+		toast.success('File downloaded!');
+	}
 </script>
 
 <div class="mx-auto flex h-full max-w-2xl flex-col items-center justify-center gap-4 p-4">
@@ -19,5 +24,7 @@
 			<p class="text-xs text-gray-600">1.5MB</p>
 		</div>
 	</div>
-	<button class="w-full rounded-lg bg-blue-600 p-3 text-white">Download</button>
+	<button on:click={downloadFile} class="w-full rounded-lg bg-blue-600 p-3 text-white"
+		>Download</button
+	>
 </div>

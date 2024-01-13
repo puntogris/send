@@ -1,6 +1,9 @@
 <script>
 	import '../app.css';
+	import { Toaster } from 'svelte-french-toast';
 </script>
+
+<Toaster />
 
 <div class="flex h-screen min-h-screen flex-col bg-gradient-to-br from-gray-100 to-blue-50">
 	<header class="flex items-center justify-between p-4">
