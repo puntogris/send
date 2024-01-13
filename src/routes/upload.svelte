@@ -6,7 +6,7 @@
 	let files = ['file1', 'file2', 'file3'];
 </script>
 
-<div class="flex flex-col">
+<div class="flex flex-col gap-4">
 	<div class="flex flex-col gap-2 rounded bg-gray-100 p-4">
 		{#each files as file}
 			<div class="flex items-center justify-between rounded bg-white p-2 shadow-sm">
