@@ -7,7 +7,7 @@
 		<h1 class="text-xl font-medium">send.</h1>
 		<button class="rounded-md border border-blue-600 p-2 text-blue-600">Sign in/up</button>
 	</header>
-	<div class="h-full px-12 py-8">
+	<div class="mx-16 my-8 h-full rounded-xl bg-white shadow-lg">
 		<slot />
 	</div>
 	<footer class="mt-auto flex items-center justify-between px-6 py-4">
