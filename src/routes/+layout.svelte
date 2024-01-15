@@ -1,6 +1,9 @@
 <script>
 	import '../app.css';
 	import { Toaster } from 'svelte-french-toast';
+	import { initializeStores } from '$lib/stores';
+
+	initializeStores();
 </script>
 
 <Toaster />

@@ -1,8 +1,10 @@
 <script lang="ts">
 	import Home from './home.svelte';
 	import Upload from './upload.svelte';
+	import { getFilesStore } from '$lib/stores';
 
-	let state = 'home';
+	const filesStore = getFilesStore();
+	$: state = $filesStore.length > 0 ? 'upload' : 'home';
 </script>
 
 <div class="grid h-full gap-8 p-6 max-md:grid-rows-2 md:grid-cols-2">

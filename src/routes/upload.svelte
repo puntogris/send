@@ -2,24 +2,31 @@
 	import XIcon from '$lib/icons/xIcon.svelte';
 	import FileIcon from '$lib/icons/fileIcon.svelte';
 	import CirclePlusIcon from '$lib/icons/circlePlusIcon.svelte';
+	import { getFilesStore } from '$lib/stores';
 
-	let files = ['file1', 'file2', 'file3'];
+	const filesStore = getFilesStore();
+
+	function removeFile(file: File) {
+		filesStore.remove(file);
+	}
 </script>
 
 <div class="flex flex-col gap-4">
 	<div class="flex flex-col gap-2 rounded bg-gray-100 p-4">
-		{#each files as file}
+		{#each $filesStore as file}
 			<div class="flex items-center justify-between rounded bg-white p-2 shadow-sm">
 				<div class="flex items-center gap-2">
 					<div class="text-blue-500">
 						<FileIcon size={40} />
 					</div>
 					<div class="flex flex-col">
-						<h1>{file}</h1>
+						<h1>{file.name}</h1>
 						<p class="text-xs text-gray-600">1.5MB</p>
 					</div>
 				</div>
-				<XIcon size={20} />
+				<button on:click={() => removeFile(file)}>
+					<XIcon size={20} />
+				</button>
 			</div>
 		{/each}
 		<div class="flex items-center justify-between pt-4">
