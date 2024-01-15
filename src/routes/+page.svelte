@@ -4,14 +4,14 @@
 	import { getFilesStore } from '$lib/stores';
 
 	const filesStore = getFilesStore();
-	$: state = $filesStore.length > 0 ? 'upload' : 'home';
+	$: hasFilesSelected = $filesStore.length > 0;
 </script>
 
 <div class="grid h-full gap-8 p-6 max-md:grid-rows-2 md:grid-cols-2">
-	{#if state == 'home'}
-		<Home />
-	{:else if state == 'upload'}
+	{#if hasFilesSelected}
 		<Upload />
+	{:else}
+		<Home />
 	{/if}
 	<div class="flex flex-col gap-4 pt-6 md:pt-16">
 		<h1 class="text-3xl font-bold">Simple, private file sharing</h1>
