@@ -3,11 +3,20 @@
 	import FileIcon from '$lib/icons/fileIcon.svelte';
 	import CirclePlusIcon from '$lib/icons/circlePlusIcon.svelte';
 	import { getFilesStore } from '$lib/stores';
+	import { getFormattedFileSize } from '$lib/utils';
 
 	const filesStore = getFilesStore();
 
 	function removeFile(file: File) {
 		filesStore.remove(file);
+	}
+
+	function getTotalFilesSize(files: FileList) {
+		const totalSize = Array.from(files).reduce((accumulator, current) => {
+			return accumulator + current.size;
+		}, 0);
+
+		return getFormattedFileSize(totalSize);
 	}
 </script>
 
@@ -21,7 +30,7 @@
 					</div>
 					<div class="flex flex-col">
 						<h1>{file.name}</h1>
-						<p class="text-xs text-gray-600">1.5MB</p>
+						<p class="text-xs text-gray-600">{getFormattedFileSize(file.size)}</p>
 					</div>
 				</div>
 				<button on:click={() => removeFile(file)}>
@@ -36,7 +45,7 @@
 				</div>
 				Select files to upload
 			</button>
-			<h4 class="text-sm text-gray-600">Total size: 15MB</h4>
+			<h4 class="text-sm text-gray-600">Total size: {getTotalFilesSize($filesStore)}</h4>
 		</div>
 	</div>
 	<button class="mt-auto rounded-lg bg-blue-600 p-3 text-white">Upload</button>
