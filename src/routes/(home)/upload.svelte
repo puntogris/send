@@ -64,7 +64,10 @@
 		{/each}
 		<div class="flex items-center justify-between pt-4">
 			<input on:change={addMoreFiles} id="upload" type="file" class="hidden" multiple />
-			<label for="upload" class="flex items-center gap-2 rounded hover:opacity-70">
+			<label
+				for="upload"
+				class="flex items-center gap-2 rounded px-1 py-2 hover:bg-gray-200 hover:bg-opacity-75"
+			>
 				<div class="text-blue-600">
 					<CirclePlusIcon size={30} />
 				</div>
