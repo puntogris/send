@@ -4,6 +4,7 @@
 	import CirclePlusIcon from '$lib/icons/circlePlusIcon.svelte';
 	import { getFilesStore } from '$lib/stores';
 	import { getFormattedFileSize } from '$lib/utils';
+	import toast from 'svelte-french-toast';
 
 	const filesStore = getFilesStore();
 
@@ -17,6 +18,29 @@
 		}, 0);
 
 		return getFormattedFileSize(totalSize);
+	}
+
+	function addMoreFiles(e: Event & { currentTarget: EventTarget & HTMLInputElement }) {
+		const files = e.currentTarget.files;
+
+		if (!files) {
+			return;
+		}
+
+		const dt = new DataTransfer();
+
+		const uniqueFiles = [...files, ...$filesStore].reduce((accumulator, file) => {
+			if (!accumulator.some((existingFile) => existingFile.name === file.name)) {
+				accumulator.push(file);
+			}
+			return accumulator;
+		}, [] as File[]);
+
+		uniqueFiles.forEach((f) => dt.items.add(f));
+
+		filesStore.set(dt.files);
+
+		toast.success('Files added!');
 	}
 </script>
 
@@ -39,12 +63,13 @@
 			</div>
 		{/each}
 		<div class="flex items-center justify-between pt-4">
-			<button class="flex items-center gap-2">
+			<input on:change={addMoreFiles} id="upload" type="file" class="hidden" multiple />
+			<label for="upload" class="flex items-center gap-2 rounded hover:opacity-70">
 				<div class="text-blue-600">
 					<CirclePlusIcon size={30} />
 				</div>
 				Select files to upload
-			</button>
+			</label>
 			<h4 class="text-sm text-gray-600">Total size: {getTotalFilesSize($filesStore)}</h4>
 		</div>
 	</div>
