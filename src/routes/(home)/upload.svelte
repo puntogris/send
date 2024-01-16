@@ -27,21 +27,14 @@
 		if (!files) {
 			return;
 		}
-
-		const dt = new DataTransfer();
-
-		const uniqueFiles = [...files, ...$filesStore].reduce((accumulator, file) => {
-			if (!accumulator.some((existingFile) => existingFile.name === file.name)) {
-				accumulator.push(file);
-			}
-			return accumulator;
-		}, [] as File[]);
-
-		uniqueFiles.forEach((f) => dt.items.add(f));
-
-		filesStore.set(dt.files);
-
+		filesStore.addFiles(files);
 		toast.success('Files added!');
+	}
+
+	function uploadFiels() {
+		const files = [...$filesStore];
+
+		toast.success('Files uploaded!');
 	}
 </script>
 
@@ -79,5 +72,8 @@
 			</h4>
 		</div>
 	</div>
-	<button class="mt-auto rounded-lg bg-blue-600 p-3 text-white hover:bg-blue-700">Upload</button>
+	<button
+		on:click={uploadFiels}
+		class="mt-auto rounded-lg bg-blue-600 p-3 text-white hover:bg-blue-700">Upload</button
+	>
 </div>

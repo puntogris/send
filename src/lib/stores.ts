@@ -15,19 +15,37 @@ export function getFilesStore(): FiltersStore {
 
 function createFilesStore(): FiltersStore {
 	//@ts-ignore
-	const { subscribe, update, set } = writable<FileList>([]);
+	const { subscribe, update, set } = writable<FileList>([] as FileList);
 
 	function remove(file: File) {
 		update((files) => {
-			const newFiles = new DataTransfer();
+			const dt = new DataTransfer();
 
 			for (let i = 0; i < files.length; i++) {
 				const current = files.item(i);
 				if (current && current != file) {
-					newFiles.items.add(current);
+					dt.items.add(current);
 				}
 			}
-			return newFiles.files;
+			return dt.files;
+		});
+	}
+
+	function addFiles(files: FileList) {
+		update((storeFiles) => {
+			const dt = new DataTransfer();
+			const allFiles = [...files, ...storeFiles];
+
+			allFiles
+				.reduce((acc, file) => {
+					if (!acc.some((f) => f.name === file.name)) {
+						acc.push(file);
+					}
+					return acc;
+				}, [] as File[])
+				.forEach((f) => dt.items.add(f));
+
+			return dt.files;
 		});
 	}
 
@@ -35,6 +53,7 @@ function createFilesStore(): FiltersStore {
 		subscribe,
 		update,
 		set,
-		remove
+		remove,
+		addFiles
 	};
 }

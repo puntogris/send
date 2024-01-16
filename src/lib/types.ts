@@ -5,4 +5,5 @@ export interface FiltersStore {
 	update: Writable<FileList>['update'];
 	set: Writable<FileList>['set'];
 	remove: (file: File) => void;
+	addFiles: (files: FileList) => void;
 }
