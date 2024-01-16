@@ -30,7 +30,7 @@
 				class="text-sm text-gray-500 hover:underline">Contact</a
 			>
 			<a
-				href="https://www.github.com/puntogris"
+				href="https://www.github.com/puntogris/send-site"
 				target="_blank"
 				class="text-sm text-gray-500 hover:underline">Github</a
 			>
