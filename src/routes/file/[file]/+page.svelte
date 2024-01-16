@@ -1,5 +1,6 @@
 <script lang="ts">
 	import FileIcon from '$lib/icons/fileIcon.svelte';
+	import { getFormattedFileSize } from '$lib/utils.js';
 	import { toast } from 'svelte-french-toast';
 
 	export let data;
@@ -20,8 +21,8 @@
 			<FileIcon size={40} />
 		</div>
 		<div class="flex flex-col">
-			<h1>{data.fileName}</h1>
-			<p class="text-xs text-gray-600">1.5MB</p>
+			<h1>{data.file.name}</h1>
+			<p class="text-xs text-gray-600">{getFormattedFileSize(data.file.size)}</p>
 		</div>
 	</div>
 	<button on:click={downloadFile} class="w-full rounded-lg bg-blue-600 p-3 text-white"
