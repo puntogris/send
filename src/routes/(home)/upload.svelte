@@ -10,6 +10,7 @@
 
 	function removeFile(file: File) {
 		filesStore.remove(file);
+		toast.success('File removed!');
 	}
 
 	function getTotalFilesSize(files: FileList) {
@@ -66,15 +67,17 @@
 			<input on:change={addMoreFiles} id="upload" type="file" class="hidden" multiple />
 			<label
 				for="upload"
-				class="flex items-center gap-2 rounded px-1 py-2 hover:bg-gray-200 hover:bg-opacity-75"
+				class="flex items-center gap-2 rounded px-1 py-2 text-sm hover:bg-gray-200 hover:bg-opacity-75"
 			>
 				<div class="text-blue-600">
 					<CirclePlusIcon size={30} />
 				</div>
 				Select files to upload
 			</label>
-			<h4 class="text-sm text-gray-600">Total size: {getTotalFilesSize($filesStore)}</h4>
+			<h4 class="text-right text-sm text-gray-600">
+				Total size: {getTotalFilesSize($filesStore)}
+			</h4>
 		</div>
 	</div>
-	<button class="mt-auto rounded-lg bg-blue-600 p-3 text-white">Upload</button>
+	<button class="mt-auto rounded-lg bg-blue-600 p-3 text-white hover:bg-blue-700">Upload</button>
 </div>

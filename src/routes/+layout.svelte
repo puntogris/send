@@ -20,12 +20,20 @@
 		<a
 			href="https://www.puntogris.com/"
 			target="_blank"
-			class="text rounded-sm bg-black p-1 font-bold text-white">https://puntogris.com</a
+			class="text rounded-sm bg-black p-1 font-bold text-white hover:underline"
+			>https://puntogris.com</a
 		>
 		<div class="flex gap-3">
-			<h4 class="text-sm text-gray-500">Contact</h4>
-			<h4 class="text-sm text-gray-500">Github</h4>
-			<h4 class="text-sm text-gray-500">Help</h4>
+			<a
+				href="https://www.puntogris.com/"
+				target="_blank"
+				class="text-sm text-gray-500 hover:underline">Contact</a
+			>
+			<a
+				href="https://www.github.com/puntogris"
+				target="_blank"
+				class="text-sm text-gray-500 hover:underline">Github</a
+			>
 		</div>
 	</footer>
 </div>

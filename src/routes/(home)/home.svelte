@@ -17,7 +17,9 @@
 			<h2>or click to send up to 1GB</h2>
 		</div>
 		<div class="flex flex-col items-center gap-2">
-			<label for="upload" class="cursor-pointer rounded-lg bg-blue-600 p-3 text-white"
+			<label
+				for="upload"
+				class="cursor-pointer rounded-lg bg-blue-600 p-3 text-white hover:bg-blue-700"
 				>Select files to upload</label
 			>
 			<input bind:files={$filesStore} id="upload" type="file" class="hidden" multiple />
