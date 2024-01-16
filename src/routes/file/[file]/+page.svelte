@@ -9,7 +9,7 @@
 	}
 </script>
 
-<div class="mx-auto flex h-full max-w-2xl flex-col items-center justify-center gap-4 p-4">
+<div class="mx-auto flex max-w-2xl grow flex-col items-center justify-center gap-4 p-4">
 	<h1 class="text-3xl font-bold">Download files</h1>
 	<p class="text-center">
 		This file was shared using send.puntogris with end-to-end encryption and a link that
