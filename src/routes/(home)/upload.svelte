@@ -57,7 +57,7 @@
 						<p class="text-xs text-gray-600">{getFormattedFileSize(file.size)}</p>
 					</div>
 				</div>
-				<button on:click={() => removeFile(file)}>
+				<button on:click={() => removeFile(file)} class="rounded p-1 hover:bg-gray-100">
 					<XIcon size={20} />
 				</button>
 			</div>
