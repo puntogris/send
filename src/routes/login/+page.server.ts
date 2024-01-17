@@ -1,5 +1,5 @@
 import { dev } from '$app/environment';
-import { AUTH_PASSWORD } from '$env/static/private';
+import { PRIVATE_AUTH_PASSWORD } from '$env/static/private';
 import { redirect } from '@sveltejs/kit';
 
 /** @type {import('./$types').Actions} */
@@ -10,11 +10,11 @@ export const actions = {
 
 		const domain = dev ? 'localhost' : 'send.puntogris.com';
 
-		if (password === AUTH_PASSWORD) {
+		if (password === PRIVATE_AUTH_PASSWORD) {
 			const expireDate = new Date();
 			expireDate.setFullYear(expireDate.getFullYear() + 1);
 
-			cookies.set('auth', AUTH_PASSWORD, {
+			cookies.set('auth', PRIVATE_AUTH_PASSWORD, {
 				sameSite: true,
 				secure: true,
 				httpOnly: true,

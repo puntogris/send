@@ -15,3 +15,4 @@ Future TODO's
 - [ ] Mobile app for Android and iOS
 - [ ] Migrate to something like Appwrite/Supabase for mobile compatibility and have auth and a DB built in
 - [ ] Dark mode
+- [ ] Multipart upload

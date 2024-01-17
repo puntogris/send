@@ -31,8 +31,27 @@
 		toast.success('Files added!');
 	}
 
-	function uploadFiels() {
+	async function uploadFiels() {
 		const files = [...$filesStore];
+
+		//get the signed url from api
+		//do we need one or multiple for each file?
+		const urlRes = await fetch('/api/upload/s3', {
+			method: 'post'
+		});
+		if (!urlRes.ok) {
+			toast.error('Error uploading file!');
+		}
+		const { url, method } = await urlRes.json();
+		console.log(url);
+		return;
+		//another api call to upload it, save it to the db and return it
+		const uploadRes = await fetch(url, {
+			method: method
+		});
+		if (!uploadRes.ok) {
+			toast.error('Error uploading file!');
+		}
 
 		toast.success('Files uploaded!');
 	}
