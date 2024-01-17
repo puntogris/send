@@ -44,6 +44,7 @@
 
 			if (!urlRes.ok) {
 				toast.error('Error uploading files!');
+				return;
 			}
 
 			const { url, method, id } = await urlRes.json();
@@ -74,6 +75,7 @@
 
 		if (!completeRes.ok) {
 			toast.error('Error uploading files!');
+			return;
 		}
 
 		toast.success('Files uploaded!');

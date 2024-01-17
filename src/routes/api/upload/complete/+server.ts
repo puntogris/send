@@ -6,15 +6,14 @@ export const POST = async ({ locals, request }) => {
 	if (!locals.authenticated) {
 		return error(401, 'Not authed to do this!');
 	}
-
 	try {
 		const { uploadFiles, expireAt, expireDownloads } = await request.json();
 
 		const uploadId = crypto.randomUUID();
 
 		await db.insert(uploads).values({
-			id: crypto.randomUUID(),
-			expireAt,
+			id: uploadId,
+			expireAt: new Date(expireAt),
 			expireDownloads
 		});
 
