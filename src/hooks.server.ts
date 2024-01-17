@@ -7,7 +7,11 @@ export async function handle({ event, resolve }) {
 
 	event.locals.authenticated = authCookie === PRIVATE_AUTH_PASSWORD;
 
-	if (authCookie != PRIVATE_AUTH_PASSWORD && !event.url.pathname.startsWith('/login')) {
+	if (
+		authCookie != PRIVATE_AUTH_PASSWORD &&
+		!event.url.pathname.startsWith('/login') &&
+		!event.url.pathname.startsWith('/file')
+	) {
 		return redirect(302, '/login');
 	}
 
