@@ -8,7 +8,8 @@ export const POST = async ({ locals }) => {
 	if (!locals.authenticated) {
 		return error(401, 'Not authed to do this!');
 	}
-	const key = `${PRIVATE_S3_PREFIX}${crypto.randomUUID()}`;
+	const id = crypto.randomUUID();
+	const key = PRIVATE_S3_PREFIX + id;
 
 	const url = await getSignedUrl(
 		s3,
@@ -19,5 +20,5 @@ export const POST = async ({ locals }) => {
 		}),
 		{ expiresIn }
 	);
-	return json({ url, method: 'PUT' });
+	return json({ url, method: 'PUT', id });
 };

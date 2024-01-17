@@ -20,10 +20,12 @@
 		<div class="text-blue-500">
 			<FileIcon size={40} />
 		</div>
-		<div class="flex flex-col">
-			<h1>{data.file.name}</h1>
-			<p class="text-xs text-gray-600">{getFormattedFileSize(data.file.size)}</p>
-		</div>
+		{#each data.files as file}
+			<div class="flex flex-col">
+				<h1>{file.name}</h1>
+				<p class="text-xs text-gray-600">{getFormattedFileSize(file.size)}</p>
+			</div>
+		{/each}
 	</div>
 	<button on:click={downloadFile} class="w-full rounded-lg bg-blue-600 p-3 text-white"
 		>Download</button

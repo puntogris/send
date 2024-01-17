@@ -5,6 +5,8 @@
 	import { getFilesStore } from '$lib/stores';
 	import { getFormattedFileSize } from '$lib/utils';
 	import toast from 'svelte-french-toast';
+	import type { SendFile } from '$lib/server/schema';
+	import type { UploadFile } from '$lib/types';
 
 	const filesStore = getFilesStore();
 
@@ -33,24 +35,45 @@
 
 	async function uploadFiels() {
 		const files = [...$filesStore];
+		const uploadFiles: UploadFile[] = [];
 
-		//get the signed url from api
-		//do we need one or multiple for each file?
-		const urlRes = await fetch('/api/upload/s3', {
-			method: 'post'
-		});
-		if (!urlRes.ok) {
-			toast.error('Error uploading file!');
+		for (const file of files) {
+			const urlRes = await fetch('/api/upload/s3', {
+				method: 'post'
+			});
+
+			if (!urlRes.ok) {
+				toast.error('Error uploading files!');
+			}
+
+			const { url, method, id } = await urlRes.json();
+
+			//another api call to upload it, save it to the db and return it
+			// const uploadRes = await fetch(url, {
+			// 	method: method
+			// });
+			// if (!uploadRes.ok) {
+			// 	toast.error('Error uploading file!');
+			// }
+
+			uploadFiles.push({
+				id: id,
+				name: file.name,
+				size: file.size
+			});
 		}
-		const { url, method } = await urlRes.json();
-		console.log(url);
-		return;
-		//another api call to upload it, save it to the db and return it
-		const uploadRes = await fetch(url, {
-			method: method
+
+		const completeRes = await fetch('api/upload/complete', {
+			method: 'post',
+			body: JSON.stringify({
+				uploadFiles,
+				expireAt: new Date(),
+				expireDownloads: 10
+			})
 		});
-		if (!uploadRes.ok) {
-			toast.error('Error uploading file!');
+
+		if (!completeRes.ok) {
+			toast.error('Error uploading files!');
 		}
 
 		toast.success('Files uploaded!');

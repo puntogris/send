@@ -7,3 +7,9 @@ export interface FiltersStore {
 	remove: (file: File) => void;
 	addFiles: (files: FileList) => void;
 }
+
+export type UploadFile = {
+	id: string;
+	name: string;
+	size: number;
+};
