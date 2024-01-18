@@ -5,8 +5,9 @@
 	import { getFilesStore } from '$lib/stores';
 	import { getFormattedFileSize } from '$lib/utils';
 	import toast from 'svelte-french-toast';
-	import type { SendFile } from '$lib/server/schema';
 	import type { UploadFile } from '$lib/types';
+
+	let isUploading = false;
 
 	const filesStore = getFilesStore();
 
@@ -33,52 +34,72 @@
 		toast.success('Files added!');
 	}
 
-	async function uploadFiels() {
+	async function uploadFiles() {
+		isUploading = true;
+
 		const files = [...$filesStore];
 		const uploadFiles: UploadFile[] = [];
 
-		for (const file of files) {
-			const urlRes = await fetch('/api/upload/s3', {
-				method: 'post'
-			});
+		const uploadToast = toast.loading('Uploading files, please wait.');
 
-			if (!urlRes.ok) {
-				toast.error('Error uploading files!');
-				return;
+		try {
+			for (const file of files) {
+				const { url, id } = await getUploadSignedUrl();
+				const upload = {
+					id,
+					name: file.name,
+					size: file.size,
+					url,
+					file
+				};
+				uploadFiles.push(upload);
+				await uploadFileToS3(upload);
 			}
-
-			const { url, method, id } = await urlRes.json();
-
-			//another api call to upload it, save it to the db and return it
-			// const uploadRes = await fetch(url, {
-			// 	method: method
-			// });
-			// if (!uploadRes.ok) {
-			// 	toast.error('Error uploading file!');
-			// }
-
-			uploadFiles.push({
-				id: id,
-				name: file.name,
-				size: file.size
-			});
+			await completeUpload(uploadFiles);
+			toast.success('Files uploaded!');
+		} catch (e: any) {
+			toast.error(e);
+		} finally {
+			isUploading = false;
+			toast.dismiss(uploadToast);
 		}
+	}
 
+	async function getUploadSignedUrl() {
+		const urlRes = await fetch('/api/upload/s3', {
+			method: 'post'
+		});
+
+		if (!urlRes.ok) {
+			throw new Error('Error getting upload URL.');
+		}
+		return await urlRes.json();
+	}
+
+	async function uploadFileToS3(upload: UploadFile) {
+		const uploadRes = await fetch(upload.url, {
+			method: 'put',
+			body: upload.file
+		});
+
+		if (!uploadRes.ok) {
+			throw new Error('Error uploading file.');
+		}
+	}
+
+	async function completeUpload(files: UploadFile[]) {
 		const completeRes = await fetch('api/upload/complete', {
 			method: 'post',
 			body: JSON.stringify({
-				uploadFiles,
+				uploadFiles: files,
 				expireAt: new Date(),
 				expireDownloads: 10
 			})
 		});
 
 		if (!completeRes.ok) {
-			toast.error('Error uploading files!');
-			return;
+			throw new Error('Error completing upload.');
 		}
-
-		toast.success('Files uploaded!');
 	}
 </script>
 
@@ -117,7 +138,8 @@
 		</div>
 	</div>
 	<button
-		on:click={uploadFiels}
+		disabled={isUploading}
+		on:click={uploadFiles}
 		class="mt-auto rounded-lg bg-blue-600 p-3 text-white hover:bg-blue-700">Upload</button
 	>
 </div>
