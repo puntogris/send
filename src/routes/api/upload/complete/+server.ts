@@ -10,15 +10,16 @@ export const POST = async ({ locals, request }) => {
 		const { uploadFiles, expireAt, expireDownloads } = await request.json();
 
 		const uploadId = crypto.randomUUID();
-
-		await db.insert(uploads).values({
-			id: uploadId,
-			expireAt: new Date(expireAt),
-			expireDownloads,
-			createdAt: new Date()
-		});
+		const fileNames = uploadFiles.map((f: any) => f.name).join('/!@#/');
 
 		await db.transaction(async (tx) => {
+			await tx.insert(uploads).values({
+				id: uploadId,
+				expireAt: new Date(expireAt),
+				expireDownloads,
+				createdAt: new Date(),
+				fileNames: fileNames
+			});
 			for (const file of uploadFiles) {
 				await tx.insert(files).values({
 					id: file.id,

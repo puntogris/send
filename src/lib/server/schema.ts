@@ -13,7 +13,8 @@ export const uploadSchema = {
 	id: text('id').primaryKey().default(crypto.randomUUID()),
 	expireAt: integer('expire_at', { mode: 'timestamp' }).notNull(),
 	expireDownloads: integer('expire_downloads').notNull(),
-	createdAt: integer('created_at', { mode: 'timestamp' }).notNull()
+	createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
+	fileNames: text('filesName').notNull().default('[]')
 };
 
 export const files = sqliteTable('files', filesSchema);

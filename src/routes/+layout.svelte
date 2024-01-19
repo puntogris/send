@@ -11,7 +11,9 @@
 <div class="flex min-h-screen flex-col bg-gradient-to-br from-gray-100 to-blue-50">
 	<header class="flex items-center justify-between p-4">
 		<a href="/" class="text-xl font-medium">send.</a>
-		<!-- <button class="rounded-md border border-blue-600 p-2 text-blue-600">Sign in/up</button> -->
+		<a href="/uploads" class="rounded-md border border-blue-600 p-2 text-sm text-blue-600"
+			>My uploads</a
+		>
 	</header>
 	<div class="mx-16 my-8 flex grow flex-col rounded-xl bg-white shadow-lg">
 		<slot />
