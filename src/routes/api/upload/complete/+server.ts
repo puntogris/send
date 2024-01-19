@@ -14,7 +14,8 @@ export const POST = async ({ locals, request }) => {
 		await db.insert(uploads).values({
 			id: uploadId,
 			expireAt: new Date(expireAt),
-			expireDownloads
+			expireDownloads,
+			createdAt: new Date()
 		});
 
 		await db.transaction(async (tx) => {
@@ -23,7 +24,8 @@ export const POST = async ({ locals, request }) => {
 					id: file.id,
 					name: file.name,
 					size: file.size,
-					upload: uploadId
+					upload: uploadId,
+					createdAt: new Date()
 				});
 			}
 		});

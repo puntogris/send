@@ -4,13 +4,16 @@ export const filesSchema = {
 	id: text('id').primaryKey(),
 	name: text('name').notNull(),
 	size: integer('size').notNull(),
-	upload: text('upload').notNull()
+	upload: text('upload').notNull(),
+	downloads: integer('downloads').notNull().default(0),
+	createdAt: integer('created_at', { mode: 'timestamp' }).notNull()
 };
 
 export const uploadSchema = {
 	id: text('id').primaryKey().default(crypto.randomUUID()),
 	expireAt: integer('expire_at', { mode: 'timestamp' }).notNull(),
-	expireDownloads: integer('expire_downloads').notNull()
+	expireDownloads: integer('expire_downloads').notNull(),
+	createdAt: integer('created_at', { mode: 'timestamp' }).notNull()
 };
 
 export const files = sqliteTable('files', filesSchema);
