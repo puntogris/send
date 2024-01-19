@@ -1,10 +1,13 @@
 <script lang="ts">
 	import ClipboardIcon from '$lib/icons/clipboardIcon.svelte';
+	import { writeToClipboard } from '$lib/utils';
 	import toast from 'svelte-french-toast';
+	import { page } from '$app/stores';
 
 	export let data;
 
-	function copyUrl() {
+	function copyUrl(id: string) {
+		writeToClipboard(`${$page.url.host}/upload/${id}`);
 		toast.success('Copied to clipboard!');
 	}
 
@@ -36,7 +39,7 @@
 					</p>
 				</div>
 				<button
-					on:click={copyUrl}
+					on:click={() => copyUrl(upload.id)}
 					class="flex h-12 w-full items-center justify-center rounded-b bg-white bg-opacity-50 hover:bg-opacity-70"
 				>
 					<ClipboardIcon /> Copy to clipboard
