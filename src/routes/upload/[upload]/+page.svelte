@@ -1,12 +1,36 @@
 <script lang="ts">
 	import DownloadIcon from '$lib/icons/downloadIcon.svelte';
 	import FileIcon from '$lib/icons/fileIcon.svelte';
+	import type { SendFile } from '$lib/server/schema.js';
 	import { getFormattedFileSize } from '$lib/utils.js';
 	import { toast } from 'svelte-french-toast';
 
 	export let data;
 
-	function downloadFile() {
+	async function downloadFile(file: SendFile) {
+		const loadingToast = toast.loading('Dowloading file...');
+
+		const response = await fetch('/api/download', {
+			method: 'post',
+			body: JSON.stringify({
+				fileId: file.id,
+				uploadId: file.upload
+			})
+		});
+
+		toast.dismiss(loadingToast);
+
+		if (!response.ok) {
+			toast.error('An error ocurred!');
+			return;
+		}
+		const { url } = await response.json();
+
+		const link = document.createElement('a');
+		link.href = url;
+		link.download = file.name;
+		link.click();
+
 		toast.success('File downloaded!');
 	}
 </script>
@@ -29,13 +53,16 @@
 						<p class="text-xs text-gray-600">{getFormattedFileSize(file.size)}</p>
 					</div>
 				</div>
-				<button on:click={downloadFile} class="rounded p-1 text-gray-800 hover:bg-gray-100">
+				<button
+					on:click={() => downloadFile(file)}
+					class="rounded p-1 text-gray-800 hover:bg-gray-100"
+				>
 					<DownloadIcon size={24} />
 				</button>
 			</div>
 		{/each}
 	</div>
-	<button on:click={downloadFile} class="w-full rounded-lg bg-blue-600 p-3 text-white"
+	<!-- <button on:click={downloadFile} class="w-full rounded-lg bg-blue-600 p-3 text-white"
 		>Download all</button
-	>
+	> -->
 </div>
