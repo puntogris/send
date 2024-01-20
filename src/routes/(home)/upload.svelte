@@ -56,7 +56,7 @@
 				uploadFiles.push(upload);
 				await uploadFileToS3(upload);
 			}
-			const uploadId = await completeUpload(uploadFiles);
+			const { uploadId } = await completeUpload(uploadFiles);
 
 			toast.success('Files uploaded!');
 
@@ -69,29 +69,30 @@
 		}
 	}
 
-	async function getUploadSignedUrl() {
-		const urlRes = await fetch('/api/upload/s3', {
+	async function getUploadSignedUrl(): Promise<{ url: string; id: string }> {
+		const response = await fetch('/api/upload/s3', {
 			method: 'post'
 		});
 
-		if (!urlRes.ok) {
+		if (!response.ok) {
 			throw new Error('Error getting upload URL.');
 		}
-		return await urlRes.json();
+		const { url, id } = await response.json();
+		return { url, id };
 	}
 
 	async function uploadFileToS3(upload: UploadFile) {
-		const uploadRes = await fetch(upload.url, {
+		const response = await fetch(upload.url, {
 			method: 'put',
 			body: upload.file
 		});
 
-		if (!uploadRes.ok) {
+		if (!response.ok) {
 			throw new Error('Error uploading file.');
 		}
 	}
 
-	async function completeUpload(files: UploadFile[]) {
+	async function completeUpload(files: UploadFile[]): Promise<{ uploadId: string }> {
 		const response = await fetch('api/upload/complete', {
 			method: 'post',
 			body: JSON.stringify({
@@ -105,7 +106,7 @@
 			throw new Error('Error completing upload.');
 		}
 		const { upload } = await response.json();
-		return upload;
+		return { uploadId: upload };
 	}
 </script>
 
