@@ -6,6 +6,7 @@
 	import { getFormattedFileSize } from '$lib/utils';
 	import toast from 'svelte-french-toast';
 	import type { UploadFile } from '$lib/types';
+	import { goto } from '$app/navigation';
 
 	let isUploading = false;
 
@@ -55,8 +56,11 @@
 				uploadFiles.push(upload);
 				await uploadFileToS3(upload);
 			}
-			await completeUpload(uploadFiles);
+			const uploadId = await completeUpload(uploadFiles);
+
 			toast.success('Files uploaded!');
+
+			goto(`upload/${uploadId}/completed`);
 		} catch (e: any) {
 			toast.error(e);
 		} finally {
@@ -88,7 +92,7 @@
 	}
 
 	async function completeUpload(files: UploadFile[]) {
-		const completeRes = await fetch('api/upload/complete', {
+		const response = await fetch('api/upload/complete', {
 			method: 'post',
 			body: JSON.stringify({
 				uploadFiles: files,
@@ -97,9 +101,11 @@
 			})
 		});
 
-		if (!completeRes.ok) {
+		if (!response.ok) {
 			throw new Error('Error completing upload.');
 		}
+		const { upload } = await response.json();
+		return upload;
 	}
 </script>
 
