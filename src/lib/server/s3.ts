@@ -16,16 +16,4 @@ export const s3 = new S3Client({
 	}
 });
 
-// export async function createDownloadSignedUrl(vaultId: string) {
-// 	const command = new GetObjectCommand({
-// 		Bucket: STORAGE_BUCKET,
-// 		Key: vaultId
-// 	});
-
-// 	const signedUrl = await getSignedUrl(s3, command, {
-// 		expiresIn: URL_EXPIRATION_IN_SECONDS
-// 	});
-// 	return signedUrl;
-// }
-
 export const expiresIn = parseInt(PRIVATE_S3_URL_EXPIRE_TIME);
