@@ -12,7 +12,7 @@
 
 <form
 	method="post"
-	class="mx-auto flex h-full max-w-2xl flex-col items-center justify-center gap-6 p-4"
+	class="mx-auto flex max-w-2xl grow flex-col items-center justify-center gap-6 p-4"
 >
 	<h1 class="text-2xl font-bold">Hey!</h1>
 	<p class="text-center">
