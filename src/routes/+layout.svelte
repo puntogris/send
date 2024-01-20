@@ -3,6 +3,8 @@
 	import { Toaster } from 'svelte-french-toast';
 	import { initializeStores } from '$lib/stores';
 
+	export let data;
+
 	initializeStores();
 </script>
 
@@ -11,9 +13,11 @@
 <div class="flex min-h-screen flex-col bg-gradient-to-br from-gray-100 to-blue-50">
 	<header class="flex items-center justify-between p-4">
 		<a href="/" class="text-xl font-medium">send.</a>
-		<a href="/uploads" class="rounded-md border border-blue-600 p-2 text-sm text-blue-600"
-			>My uploads</a
-		>
+		{#if data.isAuthenticated}
+			<a href="/uploads" class="rounded-md border border-blue-600 p-2 text-sm text-blue-600"
+				>My uploads</a
+			>
+		{/if}
 	</header>
 	<div class="mx-16 my-8 flex grow flex-col rounded-xl bg-white shadow-lg">
 		<slot />
