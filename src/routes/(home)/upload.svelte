@@ -3,12 +3,35 @@
 	import FileIcon from '$lib/icons/fileIcon.svelte';
 	import CirclePlusIcon from '$lib/icons/circlePlusIcon.svelte';
 	import { getFilesStore } from '$lib/stores';
-	import { getFormattedFileSize } from '$lib/utils';
+	import { getFormattedFileSize, calculateFutureDate } from '$lib/utils';
 	import toast from 'svelte-french-toast';
 	import type { UploadFile } from '$lib/types';
 	import { goto } from '$app/navigation';
 
 	let isUploading = false;
+
+	let selectedDowloads = 1;
+
+	let selectedDate = '5m';
+
+	const expireOptions = {
+		byDownloads: [
+			{ value: 1, label: '1 download' },
+			{ value: 2, label: '2 downloads' },
+			{ value: 3, label: '3 downloads' },
+			{ value: 4, label: '4 downloads' },
+			{ value: 5, label: '5 downloads' },
+			{ value: 20, label: '20 downloads' },
+			{ value: 50, label: '50 downloads' },
+			{ value: 100, label: '100 downloads' }
+		],
+		byDate: [
+			{ value: '5m', label: '5 minutes' },
+			{ value: '1h', label: '1 hour' },
+			{ value: '1d', label: '1 day' },
+			{ value: '7d', label: '7 days' }
+		]
+	};
 
 	const filesStore = getFilesStore();
 
@@ -97,8 +120,8 @@
 			method: 'post',
 			body: JSON.stringify({
 				uploadFiles: files,
-				expireAt: new Date(),
-				expireDownloads: 10
+				expireAt: calculateFutureDate(selectedDate),
+				expireDownloads: selectedDowloads
 			})
 		});
 
@@ -143,6 +166,26 @@
 				Total size: {getTotalFilesSize($filesStore)}
 			</h4>
 		</div>
+	</div>
+	<div class="flex items-center gap-2">
+		Expires after
+		<select
+			bind:value={selectedDowloads}
+			class="rounded bg-gray-100 p-2 pe-9 text-sm focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
+		>
+			{#each expireOptions.byDownloads as dowloads}
+				<option value={dowloads.value}>{dowloads.label}</option>
+			{/each}
+		</select>
+		or
+		<select
+			bind:value={selectedDate}
+			class="rounded bg-gray-100 p-2 pe-9 text-sm focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
+		>
+			{#each expireOptions.byDate as date}
+				<option value={date.value}>{date.label}</option>
+			{/each}
+		</select>
 	</div>
 	<button
 		disabled={isUploading}
