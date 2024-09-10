@@ -13,7 +13,7 @@
 			<CirclePlusIcon size={60} />
 		</div>
 		<div class="flex flex-col items-center gap-1">
-			<h3 class="text-lg font-bold">Drag and drop files</h3>
+			<h3 class="text-lg font-semibold">Drag and drop files</h3>
 			<h2>or click to send up to 1GB</h2>
 		</div>
 		<div class="flex flex-col items-center gap-2">
@@ -23,7 +23,6 @@
 				>Select files to upload</label
 			>
 			<input bind:files={$filesStore} id="upload" type="file" class="hidden" multiple />
-			<h3 class="font-semibold text-blue-600">Sign in to send up to 2.5GB</h3>
 		</div>
 	</div>
 </div>

@@ -2,6 +2,8 @@
 	import '../app.css';
 	import { Toaster } from 'svelte-french-toast';
 	import { initializeStores } from '$lib/stores';
+	import SendIcon from '$lib/icons/sendIcon.svelte';
+	import GithubIcon from '$lib/icons/githubIcon.svelte';
 
 	export let data;
 
@@ -12,7 +14,10 @@
 
 <div class="flex min-h-screen flex-col bg-gradient-to-br from-gray-100 to-blue-50">
 	<header class="flex items-center justify-between p-4">
-		<a href="/" class="text-xl font-medium">send.</a>
+		<a href="/" class="flex items-center gap-2 text-xl font-medium">
+			<SendIcon class="h-5 w-5" />
+			send.
+		</a>
 		{#if data.isAuthenticated}
 			<a href="/uploads" class="rounded-md border border-blue-600 p-2 text-sm text-blue-600"
 				>My uploads</a
@@ -31,14 +36,12 @@
 		>
 		<div class="flex gap-3">
 			<a
-				href="https://www.puntogris.com/"
-				target="_blank"
-				class="text-sm text-gray-500 hover:underline">Contact</a
-			>
-			<a
 				href="https://www.github.com/puntogris/send-site"
 				target="_blank"
-				class="text-sm text-gray-500 hover:underline">Github</a
+				class="flex items-center gap-1 text-sm text-gray-500 hover:underline"
+			>
+				<GithubIcon class="h-4 w-4" />
+				Github</a
 			>
 		</div>
 	</footer>
