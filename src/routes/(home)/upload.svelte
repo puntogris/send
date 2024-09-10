@@ -83,7 +83,7 @@
 
 			toast.success('Files uploaded!');
 
-			goto(`upload/${uploadId}/completed`);
+			goto(`/${uploadId}/completed`);
 		} catch (e: any) {
 			toast.error(e);
 		} finally {

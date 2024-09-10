@@ -4,7 +4,7 @@
 	import { page } from '$app/stores';
 	import ClipboardIcon from '$lib/icons/clipboardIcon.svelte';
 
-	$: dowloadUrl = `${$page.url.host}/upload/${$page.params.upload}`;
+	$: dowloadUrl = `${$page.url.host}/${$page.params.upload}`;
 
 	function downloadFile() {
 		writeToClipboard(dowloadUrl);

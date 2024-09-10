@@ -3,7 +3,6 @@ import { files, uploads } from '$lib/server/schema.js';
 import { error } from '@sveltejs/kit';
 import { and, eq, lte } from 'drizzle-orm';
 
-/** @type {import('./$types').LayoutServerLoad} */
 export async function load({ params }) {
 	const uploadId = params.upload;
 
