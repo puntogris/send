@@ -4,8 +4,10 @@
 	import { page } from '$app/stores';
 	import ClipboardIcon from '$lib/icons/clipboardIcon.svelte';
 
+	$: dowloadUrl = `${$page.url.host}/upload/${$page.params.upload}`;
+
 	function downloadFile() {
-		writeToClipboard(`${$page.url.host}/upload/${$page.params.upload}`);
+		writeToClipboard(dowloadUrl);
 		toast.success('Copied to clipboard!');
 	}
 </script>
@@ -16,10 +18,13 @@
 		This file was shared using send.puntogris with end-to-end encryption and a link that
 		automatically expires.
 	</p>
-	<div class="flex w-full flex-col gap-2"></div>
-	<button
-		on:click={downloadFile}
-		class="flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 p-3 text-white hover:bg-blue-700"
-		><ClipboardIcon size={20} /> Copy url to clipboard</button
-	>
+	<div class="flex items-center gap-2 overflow-hidden rounded-md border border-blue-500">
+		<div class="line-clamp-1 px-4 text-xl font-medium">{dowloadUrl}</div>
+		<button
+			on:click={downloadFile}
+			class="flex h-14 items-center justify-center gap-2 bg-blue-600 p-3 text-white hover:bg-blue-700"
+		>
+			<ClipboardIcon size={20} />Copy</button
+		>
+	</div>
 </div>
