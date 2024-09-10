@@ -40,6 +40,7 @@
     "@aws-sdk/s3-request-presigner": "^3.490.0",
     "@libsql/client": "^0.4.0-pre.7",
     "drizzle-orm": "^0.29.3",
-    "svelte-french-toast": "^1.2.0"
+    "svelte-french-toast": "^1.2.0",
+    "zod": "^3.22.4"
   }
 }
