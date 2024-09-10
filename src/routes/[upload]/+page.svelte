@@ -62,7 +62,4 @@
 			</div>
 		{/each}
 	</div>
-	<!-- <button on:click={downloadFile} class="w-full rounded-lg bg-blue-600 p-3 text-white"
-		>Download all</button
-	> -->
 </div>

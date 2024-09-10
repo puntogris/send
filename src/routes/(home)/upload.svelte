@@ -9,9 +9,7 @@
 	import { goto } from '$app/navigation';
 
 	let isUploading = false;
-
 	let selectedDowloads = 1;
-
 	let selectedDate = '5m';
 
 	const expireOptions = {
@@ -81,14 +79,14 @@
 			}
 			const { uploadId } = await completeUpload(uploadFiles);
 
-			toast.success('Files uploaded!');
+			toast.success('Files uploaded!', { id: uploadToast });
 
 			goto(`/${uploadId}/completed`);
 		} catch (e: any) {
-			toast.error(e);
+			console.error(e);
+			toast.error(e.message, { id: uploadToast });
 		} finally {
 			isUploading = false;
-			toast.dismiss(uploadToast);
 		}
 	}
 
