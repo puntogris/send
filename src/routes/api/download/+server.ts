@@ -7,10 +7,7 @@ import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { error, json } from '@sveltejs/kit';
 import { and, eq, gte, lte } from 'drizzle-orm';
 
-export const POST = async ({ locals, request }) => {
-	if (!locals.authenticated) {
-		return error(401, 'Not authed to do this!');
-	}
+export const POST = async ({ request }) => {
 	const { fileId, uploadId } = await request.json();
 
 	const upload = await db
