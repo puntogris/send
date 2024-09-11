@@ -1,17 +1,20 @@
 import { db } from '$lib/server/drizzle.js';
 import { files, uploads } from '$lib/server/schema.js';
-import { error } from '@sveltejs/kit';
+import { error, redirect } from '@sveltejs/kit';
 import { and, eq, lte } from 'drizzle-orm';
 
 export async function load({ params }) {
 	const uploadId = params.upload;
+
+	if (!uploadId) {
+		redirect(302, '/login');
+	}
 
 	const upload = await db.select().from(uploads).where(eq(uploads.id, uploadId)).get();
 
 	if (!upload) {
 		return error(404, 'Files not found');
 	}
-
 	if (new Date() >= upload.expireAt) {
 		return error(404, 'Files expired or not found!');
 	}
