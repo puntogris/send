@@ -7,6 +7,7 @@
 	import toast from 'svelte-french-toast';
 	import type { UploadFile } from '$lib/types';
 	import { goto } from '$app/navigation';
+	import Button from '$lib/components/button.svelte';
 
 	let isUploading = false;
 	let selectedDowloads = 1;
@@ -62,8 +63,6 @@
 		const files = [...$filesStore];
 		const uploadFiles: UploadFile[] = [];
 
-		const uploadToast = toast.loading('Uploading files, please wait.');
-
 		try {
 			for (const file of files) {
 				const { url, id } = await getUploadSignedUrl();
@@ -79,12 +78,10 @@
 			}
 			const { uploadId } = await completeUpload(uploadFiles);
 
-			toast.success('Files uploaded!', { id: uploadToast });
-
 			goto(`/${uploadId}/completed`);
 		} catch (e: any) {
 			console.error(e);
-			toast.error(e.message, { id: uploadToast });
+			toast.error(e.message);
 		} finally {
 			isUploading = false;
 		}
@@ -153,9 +150,7 @@
 				for="upload"
 				class="flex items-center gap-2 rounded px-1 py-2 text-sm hover:bg-gray-200 hover:bg-opacity-75"
 			>
-				<div class="text-blue-600">
-					<CirclePlusIcon size={30} />
-				</div>
+				<CirclePlusIcon class="size-8" />
 				Select files to upload
 			</label>
 			<h4 class="text-right text-sm text-gray-600">
@@ -183,9 +178,12 @@
 			{/each}
 		</select>
 	</div>
-	<button
-		disabled={isUploading}
-		on:click={uploadFiles}
-		class="mt-auto rounded-lg bg-blue-600 p-3 text-white hover:bg-blue-700">Upload</button
+	<Button
+		onClick={uploadFiles}
+		loading={isUploading}
+		variant="solid"
+		class="mt-auto h-11 text-base"
 	>
+		Upload
+	</Button>
 </div>

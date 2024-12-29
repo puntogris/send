@@ -42,6 +42,7 @@
     "drizzle-orm": "^0.33.0",
     "nanoid": "^5.0.7",
     "svelte-french-toast": "^1.2.0",
+    "tailwind-merge": "^2.6.0",
     "zod": "^3.22.4"
   }
 }
