@@ -1,14 +1,17 @@
 <script lang="ts">
 	import { writeToClipboard } from '$lib/utils.js';
-	import { toast } from 'svelte-french-toast';
 	import { page } from '$app/stores';
 	import ClipboardIcon from '$lib/icons/clipboardIcon.svelte';
+	import CheckIcon from '$lib/icons/checkIcon.svelte';
 
 	$: dowloadUrl = `${$page.url.host}/${$page.params.upload}`;
+	let copiedPressed = false;
 
 	function downloadFile() {
+		copiedPressed = true;
 		writeToClipboard(dowloadUrl);
-		toast.success('Copied to clipboard!');
+
+		setTimeout(() => (copiedPressed = false), 1000);
 	}
 </script>
 
@@ -22,9 +25,13 @@
 		<div class="line-clamp-1 px-4 text-xl font-medium">{dowloadUrl}</div>
 		<button
 			on:click={downloadFile}
-			class="flex h-14 items-center justify-center gap-2 bg-blue-600 p-3 text-white hover:bg-blue-700"
+			class="flex h-12 items-center justify-center gap-2 bg-blue-600 p-3 text-white hover:bg-blue-700"
 		>
-			<ClipboardIcon class="size-5" />Copy</button
-		>
+			{#if copiedPressed}
+				<CheckIcon class="size-5" />
+			{:else}
+				<ClipboardIcon class="size-5" />
+			{/if}
+		</button>
 	</div>
 </div>
