@@ -5,8 +5,6 @@
 	import SendIcon from '$lib/icons/sendIcon.svelte';
 	import GithubIcon from '$lib/icons/githubIcon.svelte';
 
-	export let data;
-
 	initializeStores();
 </script>
 

@@ -24,7 +24,7 @@
 			on:click={downloadFile}
 			class="flex h-14 items-center justify-center gap-2 bg-blue-600 p-3 text-white hover:bg-blue-700"
 		>
-			<ClipboardIcon size={20} />Copy</button
+			<ClipboardIcon class="size-5" />Copy</button
 		>
 	</div>
 </div>

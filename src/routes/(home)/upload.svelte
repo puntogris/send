@@ -136,16 +136,14 @@
 		{#each $filesStore as file}
 			<div class="flex items-center justify-between rounded bg-white p-2 shadow-sm">
 				<div class="flex items-center gap-2">
-					<div class="text-blue-500">
-						<FileIcon size={40} />
-					</div>
+					<FileIcon class="size-10 text-blue-500" />
 					<div class="flex flex-col">
 						<h1>{file.name}</h1>
 						<p class="text-xs text-gray-600">{getFormattedFileSize(file.size)}</p>
 					</div>
 				</div>
 				<button on:click={() => removeFile(file)} class="rounded p-1 hover:bg-gray-100">
-					<XIcon size={20} />
+					<XIcon class="size-5" />
 				</button>
 			</div>
 		{/each}

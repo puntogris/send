@@ -45,9 +45,7 @@
 		{#each data.files as file}
 			<div class="flex items-center justify-between rounded border p-2">
 				<div class="flex w-full items-center gap-2">
-					<div class="text-blue-500">
-						<FileIcon size={32} />
-					</div>
+					<FileIcon class="size-8 text-blue-500" />
 					<div class="flex flex-col">
 						<h1>{file.name}</h1>
 						<p class="text-xs text-gray-600">{getFormattedFileSize(file.size)}</p>
@@ -57,7 +55,7 @@
 					on:click={() => downloadFile(file)}
 					class="rounded p-1 text-gray-800 hover:bg-gray-100"
 				>
-					<DownloadIcon size={24} />
+					<DownloadIcon class="size-6" />
 				</button>
 			</div>
 		{/each}

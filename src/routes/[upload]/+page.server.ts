@@ -7,7 +7,7 @@ export async function load({ params }) {
 	const uploadId = params.upload;
 
 	if (!uploadId) {
-		redirect(302, '/login');
+		return error(404, 'Files not found');
 	}
 
 	const upload = await db.select().from(uploads).where(eq(uploads.id, uploadId)).get();
