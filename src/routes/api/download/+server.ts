@@ -33,7 +33,7 @@ export const POST = async ({ request }) => {
 		throw error(404, 'Not found');
 	}
 
-	const url = await getDownloadUrl(file.id);
+	const url = await getDownloadUrl(file.id, file.name);
 
 	await db
 		.update(files)

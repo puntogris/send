@@ -21,12 +21,12 @@ const s3 = new S3Client({
 
 const expiresIn = parseInt(PRIVATE_S3_URL_EXPIRE_TIME);
 
-async function getUploadUrl(key: string): Promise<string> {
+async function getUploadUrl(id: string): Promise<string> {
 	const url = await getSignedUrl(
 		s3,
 		new PutObjectCommand({
 			Bucket: PRIVATE_S3_BUCKET,
-			Key: PRIVATE_S3_PREFIX + key,
+			Key: PRIVATE_S3_PREFIX + id,
 			ContentType: 'application/octet-stream'
 		}),
 		{ expiresIn }
@@ -35,12 +35,13 @@ async function getUploadUrl(key: string): Promise<string> {
 	return url;
 }
 
-async function getDownloadUrl(key: string): Promise<string> {
+async function getDownloadUrl(id: string, name: string): Promise<string> {
 	const url = await getSignedUrl(
 		s3,
 		new GetObjectCommand({
 			Bucket: PRIVATE_S3_BUCKET,
-			Key: PRIVATE_S3_PREFIX + key
+			Key: PRIVATE_S3_PREFIX + id,
+			ResponseContentDisposition: `attachment; filename="${name}"`
 		}),
 		{ expiresIn }
 	);
