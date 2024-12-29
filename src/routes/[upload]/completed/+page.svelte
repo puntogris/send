@@ -6,12 +6,15 @@
 
 	$: dowloadUrl = `${$page.url.host}/${$page.params.upload}`;
 	let copiedPressed = false;
+	let timeout: NodeJS.Timeout;
 
 	function downloadFile() {
 		copiedPressed = true;
+
+		clearTimeout(timeout);
 		writeToClipboard(dowloadUrl);
 
-		setTimeout(() => (copiedPressed = false), 1000);
+		timeout = setTimeout(() => (copiedPressed = false), 1000);
 	}
 </script>
 
