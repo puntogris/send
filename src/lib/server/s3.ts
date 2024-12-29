@@ -3,11 +3,14 @@ import {
 	PRIVATE_S3_SECRET_KEY,
 	PRIVATE_S3_URL_EXPIRE_TIME,
 	PRIVATE_S3_ENDPOINT,
-	PRIVATE_S3_REGION
+	PRIVATE_S3_REGION,
+	PRIVATE_S3_BUCKET,
+	PRIVATE_S3_PREFIX
 } from '$env/static/private';
-import { S3Client } from '@aws-sdk/client-s3';
+import { GetObjectCommand, PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 
-export const s3 = new S3Client({
+const s3 = new S3Client({
 	region: PRIVATE_S3_REGION,
 	endpoint: PRIVATE_S3_ENDPOINT,
 	credentials: {
@@ -16,4 +19,33 @@ export const s3 = new S3Client({
 	}
 });
 
-export const expiresIn = parseInt(PRIVATE_S3_URL_EXPIRE_TIME);
+const expiresIn = parseInt(PRIVATE_S3_URL_EXPIRE_TIME);
+
+async function getUploadUrl(key: string): Promise<string> {
+	const url = await getSignedUrl(
+		s3,
+		new PutObjectCommand({
+			Bucket: PRIVATE_S3_BUCKET,
+			Key: PRIVATE_S3_PREFIX + key,
+			ContentType: 'application/octet-stream'
+		}),
+		{ expiresIn }
+	);
+
+	return url;
+}
+
+async function getDownloadUrl(key: string): Promise<string> {
+	const url = await getSignedUrl(
+		s3,
+		new GetObjectCommand({
+			Bucket: PRIVATE_S3_BUCKET,
+			Key: PRIVATE_S3_PREFIX + key
+		}),
+		{ expiresIn }
+	);
+
+	return url;
+}
+
+export { getUploadUrl, getDownloadUrl };
