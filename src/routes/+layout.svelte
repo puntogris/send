@@ -15,10 +15,10 @@
 		<SendIcon class="h-5 w-5" />
 		send.
 	</a>
-	<div class="mx-16 my-8 flex grow flex-col rounded-xl bg-white shadow-lg">
+	<div class="mx-2 my-8 flex grow flex-col rounded-xl bg-white shadow-lg sm:mx-16">
 		<slot />
 	</div>
-	<footer class="mt-auto flex items-center justify-between px-6 py-4">
+	<footer class="mt-auto flex flex-wrap items-center justify-between gap-2 px-6 py-4">
 		<a
 			href="https://www.puntogris.com/"
 			target="_blank"

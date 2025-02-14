@@ -12,9 +12,9 @@ export function getFormattedFileSize(sizeInBytes: number) {
 	}
 }
 
-export async function writeToClipboard(data: string) {
+export function writeToClipboard(data: string) {
 	if (navigator) {
-		await navigator.clipboard.writeText(data);
+		navigator.clipboard.writeText(data);
 	}
 }
 

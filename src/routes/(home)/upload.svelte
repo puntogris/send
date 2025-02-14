@@ -128,14 +128,14 @@
 	}
 </script>
 
-<div class="flex flex-col gap-4">
+<div class="flex flex-col gap-4 overflow-hidden">
 	<div class="flex flex-col gap-2 rounded bg-gray-100 p-4">
 		{#each $filesStore as file}
 			<div class="flex items-center justify-between rounded bg-white p-2 shadow-sm">
-				<div class="flex items-center gap-2">
-					<FileIcon class="size-10 text-blue-500" />
-					<div class="flex flex-col">
-						<h1>{file.name}</h1>
+				<div class="flex items-center gap-2 overflow-hidden">
+					<FileIcon class="size-10 shrink-0 text-blue-500" />
+					<div class="flex flex-col overflow-hidden">
+						<h1 class="truncate">{file.name}</h1>
 						<p class="text-xs text-gray-600">{getFormattedFileSize(file.size)}</p>
 					</div>
 				</div>
@@ -150,7 +150,7 @@
 				for="upload"
 				class="flex items-center gap-2 rounded px-1 py-2 text-sm hover:bg-gray-200 hover:bg-opacity-75"
 			>
-				<CirclePlusIcon class="size-8" />
+				<CirclePlusIcon class="size-8 shrink-0" />
 				Select files to upload
 			</label>
 			<h4 class="text-right text-sm text-gray-600">
@@ -158,7 +158,7 @@
 			</h4>
 		</div>
 	</div>
-	<div class="flex items-center gap-2">
+	<div class="flex flex-row flex-wrap items-center gap-2">
 		Expires after
 		<select
 			bind:value={selectedDowloads}

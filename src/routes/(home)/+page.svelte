@@ -7,7 +7,7 @@
 	$: hasFilesSelected = $filesStore.length > 0;
 </script>
 
-<div class="grid grow gap-8 p-6 max-md:grid-rows-2 md:grid-cols-2">
+<div class="grid grow gap-8 p-3 max-md:grid-rows-2 sm:p-6 md:grid-cols-2">
 	{#if hasFilesSelected}
 		<Upload />
 	{:else}
