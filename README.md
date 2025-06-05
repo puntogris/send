@@ -16,3 +16,17 @@ Future TODO's
 - [ ] Migrate to something like Appwrite/Supabase for mobile compatibility and have auth and a DB built in or create an api for all theses features
 - [ ] Dark mode
 - [ ] Multipart upload
+
+## Screenshots
+
+### Upload your files
+
+![Upload](screenshots/1.webp)
+
+### Get the link
+
+![Get link](screenshots/2.webp)
+
+### Download the files
+
+![Download](screenshots/3.webp)
