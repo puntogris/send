@@ -4,7 +4,6 @@
 	export let variant: 'solid' | 'outline' | 'ghost' = 'solid';
 	export let onClick: () => void = () => {};
 	export let loading = false;
-	//rounded-lg bg-blue-600 p-3 text-white hover:bg-blue-700
 </script>
 
 <button
