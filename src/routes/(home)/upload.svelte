@@ -4,10 +4,10 @@
 	import CirclePlusIcon from '$lib/icons/circlePlusIcon.svelte';
 	import { getFilesStore } from '$lib/stores.svelte';
 	import { getFormattedFileSize, calculateFutureDate } from '$lib/utils';
-	import toast from 'svelte-french-toast';
 	import type { UploadFile } from '$lib/types';
 	import { goto } from '$app/navigation';
 	import Button from '$lib/components/button.svelte';
+	import { toast } from 'svelte-sonner';
 
 	let isUploading = $state(false);
 	let selectedDowloads = $state(1);

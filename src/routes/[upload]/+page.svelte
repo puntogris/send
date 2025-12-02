@@ -3,7 +3,7 @@
 	import FileIcon from '$lib/icons/fileIcon.svelte';
 	import type { SendFile } from '$lib/server/schema.js';
 	import { getFormattedFileSize } from '$lib/utils.js';
-	import { toast } from 'svelte-french-toast';
+	import { toast } from 'svelte-sonner';
 
 	export let data;
 

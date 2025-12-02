@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { toast } from 'svelte-french-toast';
 	import type { PageProps } from './$types';
 	import Button from '$lib/components/button.svelte';
+	import { toast } from 'svelte-sonner';
 
 	let { form }: PageProps = $props();
 
