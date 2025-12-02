@@ -21,8 +21,9 @@ function createFilesStore(): FiltersStore {
 
 	function addFiles(newFiles: FileList) {
 		for (let i = 0; i < newFiles.length; i++) {
-			const f = newFiles.item(i);
-			if (f) files.push(f);
+			const toAdd = newFiles.item(i);
+			const exists = files.find((f) => f.name === f.name);
+			if (toAdd && !exists) files.push(toAdd);
 		}
 	}
 

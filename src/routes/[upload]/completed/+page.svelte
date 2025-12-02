@@ -8,7 +8,7 @@
 	let copiedPressed = $state(false);
 	let timeout: NodeJS.Timeout;
 
-	function downloadFile() {
+	function copyDownloadUrl() {
 		copiedPressed = true;
 
 		clearTimeout(timeout);
@@ -34,14 +34,14 @@
 		<div class="flex w-full flex-col gap-2">
 			<label for="link" class="text-left text-sm font-medium text-gray-700">Share link</label>
 			<div class="relative flex w-full items-center">
-				<input 
+				<input
 					id="link"
-					readonly 
-					value={dowloadUrl} 
+					readonly
+					value={dowloadUrl}
 					class="w-full rounded-xl border border-gray-200 bg-gray-50 py-3 pl-4 pr-14 text-sm text-gray-600 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
 				/>
 				<button
-					onclick={downloadFile}
+					onclick={copyDownloadUrl}
 					class="absolute right-2 rounded-lg p-2 text-blue-600 transition-colors hover:bg-blue-50"
 					title="Copy link"
 				>
@@ -56,9 +56,9 @@
 
 		<div class="h-px w-full bg-gray-100"></div>
 
-		<a 
+		<a
 			href="/"
-			class="flex w-full items-center justify-center rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm font-semibold text-gray-700 transition-all hover:bg-gray-50 hover:border-gray-300"
+			class="flex w-full items-center justify-center rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm font-semibold text-gray-700 transition-all hover:border-gray-300 hover:bg-gray-50"
 		>
 			Send another file
 		</a>
