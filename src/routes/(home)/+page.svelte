@@ -1,10 +1,10 @@
 <script lang="ts">
+	import { getFilesStore } from '$lib/stores.svelte';
 	import Home from './home.svelte';
 	import Upload from './upload.svelte';
-	import { getFilesStore } from '$lib/stores';
 
 	const filesStore = getFilesStore();
-	$: hasFilesSelected = $filesStore.length > 0;
+	let hasFilesSelected = $derived(filesStore.files.length > 0);
 </script>
 
 <div class="grid grow gap-8 p-3 max-md:grid-rows-2 sm:p-6 md:grid-cols-2">

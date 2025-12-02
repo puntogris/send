@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 
-	let error = $page.error?.message ?? 'Something went wrong..';
+	let error = page.error?.message ?? 'Something went wrong..';
 </script>
 
 <div class="mx-auto flex max-w-2xl grow flex-col items-center justify-center text-center">

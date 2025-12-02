@@ -2,16 +2,16 @@
 	import XIcon from '$lib/icons/xIcon.svelte';
 	import FileIcon from '$lib/icons/fileIcon.svelte';
 	import CirclePlusIcon from '$lib/icons/circlePlusIcon.svelte';
-	import { getFilesStore } from '$lib/stores';
+	import { getFilesStore } from '$lib/stores.svelte';
 	import { getFormattedFileSize, calculateFutureDate } from '$lib/utils';
 	import toast from 'svelte-french-toast';
 	import type { UploadFile } from '$lib/types';
 	import { goto } from '$app/navigation';
 	import Button from '$lib/components/button.svelte';
 
-	let isUploading = false;
-	let selectedDowloads = 1;
-	let selectedDate = '5m';
+	let isUploading = $state(false);
+	let selectedDowloads = $state(1);
+	let selectedDate = $state('5m');
 
 	const expireOptions = {
 		byDownloads: [
@@ -39,11 +39,8 @@
 		toast.success('File removed!');
 	}
 
-	function getTotalFilesSize(files: FileList) {
-		const totalSize = Array.from(files).reduce((accumulator, current) => {
-			return accumulator + current.size;
-		}, 0);
-
+	function getTotalFilesSize(files: File[]) {
+		const totalSize = files.reduce((accumulator, current) => accumulator + current.size, 0);
 		return getFormattedFileSize(totalSize);
 	}
 
@@ -60,11 +57,10 @@
 	async function uploadFiles() {
 		isUploading = true;
 
-		const files = [...$filesStore];
 		const uploadFiles: UploadFile[] = [];
 
 		try {
-			for (const file of files) {
+			for (const file of filesStore.files) {
 				const { url, id } = await getUploadSignedUrl();
 				const upload = {
 					id,
@@ -80,7 +76,6 @@
 
 			goto(`/${uploadId}/completed`);
 		} catch (e: any) {
-			console.error(e);
 			toast.error(e.message);
 		} finally {
 			isUploading = false;
@@ -130,7 +125,7 @@
 
 <div class="flex flex-col gap-4 overflow-hidden">
 	<div class="flex flex-col gap-2 rounded bg-gray-100 p-4">
-		{#each $filesStore as file}
+		{#each filesStore.files as file}
 			<div class="flex items-center justify-between rounded bg-white p-2 shadow-sm">
 				<div class="flex items-center gap-2 overflow-hidden">
 					<FileIcon class="size-10 shrink-0 text-blue-500" />
@@ -139,13 +134,13 @@
 						<p class="text-xs text-gray-600">{getFormattedFileSize(file.size)}</p>
 					</div>
 				</div>
-				<button on:click={() => removeFile(file)} class="rounded p-1 hover:bg-gray-100">
+				<button onclick={() => removeFile(file)} class="rounded p-1 hover:bg-gray-100">
 					<XIcon class="size-5" />
 				</button>
 			</div>
 		{/each}
 		<div class="flex items-center justify-between pt-4">
-			<input on:change={addMoreFiles} id="upload" type="file" class="hidden" multiple />
+			<input onchange={addMoreFiles} id="upload" type="file" class="hidden" multiple />
 			<label
 				for="upload"
 				class="flex items-center gap-2 rounded px-1 py-2 text-sm hover:bg-gray-200 hover:bg-opacity-75"
@@ -154,7 +149,7 @@
 				Select files to upload
 			</label>
 			<h4 class="text-right text-sm text-gray-600">
-				Total size: {getTotalFilesSize($filesStore)}
+				Total size: {getTotalFilesSize(filesStore.files)}
 			</h4>
 		</div>
 	</div>

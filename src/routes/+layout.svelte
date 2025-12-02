@@ -1,7 +1,7 @@
 <script>
 	import '../app.css';
 	import { Toaster } from 'svelte-french-toast';
-	import { initializeStores } from '$lib/stores';
+	import { initializeStores } from '$lib/stores.svelte';
 	import SendIcon from '$lib/icons/sendIcon.svelte';
 	import GithubIcon from '$lib/icons/githubIcon.svelte';
 

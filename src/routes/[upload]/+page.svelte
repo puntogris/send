@@ -54,9 +54,9 @@
 						<p class="text-xs text-gray-600">{getFormattedFileSize(file.size)}</p>
 					</div>
 				</div>
-				<button class="rounded p-1 text-gray-800">
+				<div class="rounded p-1 text-gray-800">
 					<DownloadIcon class="size-6" />
-				</button>
+				</div>
 			</button>
 		{/each}
 	</div>

@@ -1,13 +1,15 @@
 <script lang="ts">
 	import { toast } from 'svelte-french-toast';
+	import type { PageProps } from './$types';
+	import Button from '$lib/components/button.svelte';
 
-	export let form;
+	let { form }: PageProps = $props();
 
-	$: {
+	$effect(() => {
 		if (form?.error) {
 			toast.error(form.error);
 		}
-	}
+	});
 </script>
 
 <form
@@ -27,5 +29,5 @@
 		name="password"
 		placeholder="super secret password to enter"
 	/>
-	<button type="submit" class="w-full rounded-lg bg-blue-600 p-3 text-white">Login</button>
+	<Button class="w-full" type="submit">Login</Button>
 </form>

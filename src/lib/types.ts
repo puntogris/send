@@ -1,9 +1,6 @@
-import type { Writable } from 'svelte/store';
 
 export interface FiltersStore {
-	subscribe: Writable<FileList>['subscribe'];
-	update: Writable<FileList>['update'];
-	set: Writable<FileList>['set'];
+	files: File[];
 	remove: (file: File) => void;
 	addFiles: (files: FileList) => void;
 }

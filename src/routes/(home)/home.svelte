@@ -1,15 +1,13 @@
 <script lang="ts">
 	import CirclePlusIcon from '$lib/icons/circlePlusIcon.svelte';
-	import { getFilesStore } from '$lib/stores';
+	import { getFilesStore } from '$lib/stores.svelte';
 	import { twMerge } from 'tailwind-merge';
 
 	const filesStore = getFilesStore();
-	let isDragging: boolean = false;
+	let isDragging = $state(false);
 
 	function handleFiles(fileList: FileList) {
-		if (fileList) {
-			filesStore.addFiles(fileList);
-		}
+		filesStore.addFiles(fileList);
 	}
 
 	function handleDragOver(event: DragEvent) {
@@ -37,9 +35,9 @@
 		'flex h-full flex-col justify-center rounded-md border-4 border-dashed p-4',
 		isDragging ? 'border-gray-400' : 'border-gray-300'
 	)}
-	on:dragover={handleDragOver}
-	on:dragleave={handleDragLeave}
-	on:drop={handleDrop}
+	ondragover={handleDragOver}
+	ondragleave={handleDragLeave}
+	ondrop={handleDrop}
 	role="region"
 >
 	<div class="flex flex-col items-center gap-8">
@@ -55,7 +53,15 @@
 			>
 				Select files to upload
 			</label>
-			<input bind:files={$filesStore} id="upload" type="file" class="hidden" multiple />
+			<input
+				onchange={(e) => {
+					if (e.currentTarget.files) handleFiles(e.currentTarget.files);
+				}}
+				id="upload"
+				type="file"
+				class="hidden"
+				multiple
+			/>
 		</div>
 	</div>
 </div>

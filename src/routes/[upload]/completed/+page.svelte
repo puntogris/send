@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { writeToClipboard } from '$lib/utils.js';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import ClipboardIcon from '$lib/icons/clipboardIcon.svelte';
 	import CheckIcon from '$lib/icons/checkIcon.svelte';
 
-	$: dowloadUrl = `${$page.url.host}/${$page.params.upload}`;
-	let copiedPressed = false;
+	let dowloadUrl = $derived(`${page.url.host}/${page.params.upload}`);
+	let copiedPressed = $state(false);
 	let timeout: NodeJS.Timeout;
 
 	function downloadFile() {
@@ -31,7 +31,7 @@
 			{dowloadUrl}
 		</div>
 		<button
-			on:click={downloadFile}
+			onclick={downloadFile}
 			class="flex h-10 items-center justify-center gap-2 bg-blue-600 p-3 text-white hover:bg-blue-700 sm:h-12"
 		>
 			{#if copiedPressed}
