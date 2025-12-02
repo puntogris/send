@@ -32,26 +32,43 @@
 
 <div
 	class={twMerge(
-		'flex h-full flex-col justify-center rounded-md border-4 border-dashed p-4',
-		isDragging ? 'border-gray-400' : 'border-gray-300'
+		'relative flex h-full flex-col justify-center overflow-hidden rounded-3xl border border-dashed bg-gray-50/30 p-12 transition-all duration-300 ease-out',
+		isDragging
+			? 'scale-[1.01] border-blue-400 bg-blue-50/30'
+			: 'border-gray-300 hover:border-gray-400 hover:bg-gray-50/50'
 	)}
 	ondragover={handleDragOver}
 	ondragleave={handleDragLeave}
 	ondrop={handleDrop}
 	role="region"
 >
-	<div class="flex flex-col items-center gap-8">
-		<CirclePlusIcon class="size-14 text-blue-600" />
-		<div class=" flex flex-col items-center gap-1">
-			<h3 class="text-lg font-semibold">Drag and drop files</h3>
-			<h2>or click to send up to 1GB</h2>
+	<div class="flex flex-col items-center gap-8 text-center">
+		<div class="relative">
+			<div
+				class="absolute -inset-4 animate-pulse rounded-full bg-blue-50 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+				class:opacity-100={isDragging}
+			></div>
+			<CirclePlusIcon
+				class={twMerge(
+					'relative size-16 text-gray-300 transition-colors duration-300',
+					isDragging ? 'text-blue-500' : 'group-hover:text-blue-400'
+				)}
+			/>
 		</div>
+
 		<div class="flex flex-col items-center gap-2">
+			<h3 class="text-xl font-medium text-gray-900">Drag and drop files</h3>
+			<p class="text-base text-gray-500">
+				or click to send up to <span class="font-medium text-gray-700">1GB</span>
+			</p>
+		</div>
+
+		<div class="flex flex-col items-center gap-2 pt-2">
 			<label
 				for="upload"
-				class="cursor-pointer rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
+				class="group relative cursor-pointer overflow-hidden rounded-xl bg-blue-600 px-8 py-2.5 text-sm font-medium text-white shadow-sm transition-all hover:bg-blue-700 hover:shadow-md active:scale-95"
 			>
-				Select files to upload
+				<span class="relative z-10">Select files</span>
 			</label>
 			<input
 				onchange={(e) => {
