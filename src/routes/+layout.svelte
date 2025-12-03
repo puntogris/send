@@ -10,7 +10,7 @@
 
 <Toaster />
 
-<div class="flex min-h-screen flex-col bg-gradient-to-br from-gray-100 to-blue-50">
+<div class="flex min-h-dvh flex-col bg-gradient-to-br from-gray-100 to-blue-50">
 	<a href="/" class="flex items-center gap-2 p-5 text-xl font-medium">
 		<SendIcon class="h-5 w-5" />
 		send.
