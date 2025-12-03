@@ -3,9 +3,9 @@ import { PRIVATE_AUTH_PASSWORD } from '$env/static/private';
 import { redirect } from '@sveltejs/kit';
 
 export async function load({ locals }) {
-	if (locals.authenticated) {
-		redirect(302, '/');
-	}
+	// if (locals.authenticated) {
+	// 	redirect(302, '/');
+	// }
 }
 
 export const actions = {

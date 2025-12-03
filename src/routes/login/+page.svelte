@@ -12,22 +12,34 @@
 	});
 </script>
 
-<form
-	method="post"
-	class="mx-auto flex max-w-2xl grow flex-col items-center justify-center gap-6 p-4"
->
-	<h1 class="text-2xl font-bold">Hey!</h1>
-	<p class="text-center">
-		This app is currently intended for personal use. If you're interested, feel free to explore the
-		code on <a class="text-blue-600 hover:underline" href="github.com/puntogris/send-site">github</a
-		> and consider forking it. I have plans to make it open for everyone to use at some point in the
-		future.
-	</p>
-	<input
-		class="w-full rounded-lg border p-2"
-		type="password"
-		name="password"
-		placeholder="super secret password to enter"
-	/>
-	<Button class="w-full" type="submit">Login</Button>
-</form>
+<div class="flex h-full w-full grow items-center justify-center p-4 sm:p-6 lg:p-8">
+	<form
+		method="post"
+		class="flex w-full max-w-md flex-col items-center gap-8 rounded-3xl p-2 text-center lg:p-8"
+	>
+		<div class="flex flex-col items-center gap-2">
+			<h1 class="text-2xl font-bold text-gray-900">Hey!</h1>
+			<p class="text-sm text-gray-500 lg:text-base">
+				This app is currently intended for personal use. If you're interested, feel free to explore
+				the code on
+				<a class="text-blue-600 hover:underline" href="https://github.com/puntogris/send-site">
+					github
+				</a>
+				and consider forking it.
+			</p>
+		</div>
+
+		<div class="flex w-full flex-col gap-4">
+			<input
+				class="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-900 outline-none transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+				type="password"
+				name="password"
+				placeholder="Enter password"
+			/>
+			<Button
+				class="h-12 w-full rounded-xl bg-blue-600 text-base font-semibold text-white shadow-sm transition-all hover:bg-blue-700 hover:shadow-md active:scale-95"
+				type="submit">Login</Button
+			>
+		</div>
+	</form>
+</div>
