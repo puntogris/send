@@ -8,7 +8,7 @@
 </script>
 
 <div class="flex h-full w-full grow justify-center p-4 sm:p-6 lg:p-8">
-	<div class="grid w-full grow grid-cols-1 gap-10 lg:grid-cols-2 lg:items-center lg:gap-16">
+	<div class="grid w-full grow grid-cols-1 gap-6 lg:grid-cols-2 lg:items-center lg:gap-16">
 		<div class="h-full w-full">
 			{#if hasFilesSelected}
 				<Upload />
@@ -17,13 +17,13 @@
 			{/if}
 		</div>
 
-		<div class="flex flex-col gap-4 lg:gap-8 text-center lg:text-left">
-			<div class="space-y-4">
-				<h1 class="text-lg font-bold tracking-tight text-gray-900 sm:text-5xl">
+		<div class="flex flex-col gap-4 text-center lg:gap-8 lg:text-left">
+			<div class="space-y-2 lg:space-y-4">
+				<h1 class="text-lg font-bold tracking-tight text-gray-900 md:text-2xl lg:text-5xl">
 					Simple, private <br class="hidden lg:block" />
 					<span class="text-blue-600">file sharing</span>
 				</h1>
-				<p class="mx-auto max-w-xl text-sm lg:text-base text-gray-500 lg:mx-0">
+				<p class="mx-auto max-w-xl text-sm text-gray-500 lg:mx-0 lg:text-base">
 					Send lets you share files with end-to-end encryption and a link that automatically
 					expires. Keep what you share private.
 				</p>
