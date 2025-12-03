@@ -15,7 +15,7 @@
 		<SendIcon class="h-5 w-5" />
 		send.
 	</a>
-	<div class="mx-2 my-8 flex grow flex-col rounded-xl bg-white shadow-lg sm:mx-16">
+	<div class="mx-2 my-4 flex grow flex-col rounded-xl bg-white shadow-lg sm:mx-16 lg:my-8">
 		<slot />
 	</div>
 	<footer class="mt-auto flex flex-wrap items-center justify-between gap-2 px-6 py-4">
